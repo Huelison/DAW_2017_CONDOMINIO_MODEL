@@ -37,7 +37,7 @@ public class Pessoa implements Serializable{
     private String nome;
     @NotNull(message = "O email deve ser informado")
     @Length(max = 50, message = "O email não pode ter mais que {max} caracteres")
-    @NotBlank(message = "O email não pode ser em brnaco")
+    @NotBlank(message = "O email não pode ser em branco")
     @Column(name = "email", length = 50, nullable = false)
     private String email;    
     @NotNull(message = "O telefone deve ser informado")
