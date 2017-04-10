@@ -45,12 +45,12 @@ public class UnidadeCondominal implements Serializable{
     
     @NotNull(message = "A área deve ser informada")
     @Min(0)
-    @Column(name = "estoque", nullable = false, columnDefinition = "numeric(10,2)")
+    @Column(name = "area", nullable = false, columnDefinition = "numeric(10,2)")
     private Double area;
     
     @NotNull(message = "O número do quarto deve ser informado")
     @Min(0)
-    @Column(name = "numero_quarto", nullable = false, columnDefinition = "numeric(10,2)")
+    @Column(name = "numero_quarto", nullable = false)
     private Integer numeroQuarto;
     
     @NotNull(message = "O condominio deve ser informado")

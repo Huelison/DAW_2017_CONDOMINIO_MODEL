@@ -5,8 +5,13 @@
  */
 package br.edu.ifsul.junit;
 
+import br.edu.ifsul.modelo.Aluguel;
 import br.edu.ifsul.modelo.Condominio;
+import br.edu.ifsul.modelo.Locatario;
+import br.edu.ifsul.modelo.Pessoa;
 import br.edu.ifsul.modelo.Recurso;
+import br.edu.ifsul.modelo.UnidadeCondominal;
+import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,13 +24,13 @@ import org.junit.Test;
  *
  * @author Huelison
  */
-public class TestePersistirCondominioRecurso {
+public class TestePersistirAluguel {
     
     
     EntityManagerFactory emf;
     EntityManager em;    
     
-    public TestePersistirCondominioRecurso() {
+    public TestePersistirAluguel() {
     
     }
     
@@ -44,14 +49,25 @@ public class TestePersistirCondominioRecurso {
     public void testar(){
         boolean exception = false;
         try{
-            Recurso r = em.find(Recurso.class,3 );
-            Condominio c = em.find(Condominio.class, 2);
+            UnidadeCondominal uc = em.find(UnidadeCondominal.class, 3);
+            Locatario l = em.find(Locatario.class, 5);
+
+            Aluguel al = new Aluguel();
+            al.setValor(500.00);
             
-            
-            System.out.println(c.getNome());
-            c.getcRecurso().add(r);
+            Calendar contrato  = Calendar.getInstance();
+            al.setInicioContrato(contrato);
+
+            contrato  = Calendar.getInstance();
+            contrato.add(Calendar.YEAR, 2);
+            al.setFimContrato(contrato);
+
+            al.setDiaVencimento(15);
+            al.setUnidadecondominal(uc);
+            al.setLocatario(l);
+
             em.getTransaction().begin();
-            em.persist(c);
+            em.persist(al);
             em.getTransaction().commit();
         }catch(Exception e){
             exception = true;

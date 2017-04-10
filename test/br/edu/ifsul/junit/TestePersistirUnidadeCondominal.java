@@ -46,8 +46,8 @@ public class TestePersistirUnidadeCondominal {
     public void testar(){
         boolean exception = false;
         try{
-            Condominio c = em.find(Condominio.class, 1);
-            Pessoa p = em.find(Pessoa.class, 1);
+            Condominio c = em.find(Condominio.class, 2);
+            Pessoa p = em.find(Pessoa.class, 5);
             UnidadeCondominal uc = new UnidadeCondominal();
             uc.setNumero("10");
             uc.setDescricao("quarto de teste");
