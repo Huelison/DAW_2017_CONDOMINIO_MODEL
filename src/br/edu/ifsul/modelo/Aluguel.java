@@ -6,15 +6,20 @@
 package br.edu.ifsul.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,47 +34,60 @@ import org.hibernate.annotations.ForeignKey;
  */
 @Entity
 @Table(name = "aluguel")
-public class Aluguel implements Serializable{
+public class Aluguel implements Serializable {
+
     @Id
     @SequenceGenerator(name = "seq_aluguel", sequenceName = "seq_aluguel_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_aluguel", strategy = GenerationType.SEQUENCE)
     private Integer id;
-    
+
     @NotNull(message = "O valor deve ser informado")
     @Min(0)
     @Column(name = "valor", nullable = false, columnDefinition = "numeric(10,2)")
     private Double valor;
-    
+
     @NotNull(message = "O inicio do contrato deve ser informado")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "inicio_contrato", nullable = false)
     private Calendar inicioContrato;
-    
+
     @NotNull(message = "O fim do contrato deve ser informado")
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fim_contrato", nullable = false)    
+    @Column(name = "fim_contrato", nullable = false)
     private Calendar fimContrato;
-    
+
     @NotNull(message = "O dia do vencimento deve ser informado")
     @Min(0)
     @Column(name = "dia_vencimento", nullable = false)
     private Integer diaVencimento;
-    
+
     @NotNull(message = "A unidade condominal deve ser informada")
     @ManyToOne
     @JoinColumn(name = "unidade_condominal", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_unidade_condominal_id")
     private UnidadeCondominal unidadecondominal;
-    
+
     @NotNull(message = "O locatario deve ser informado")
     @ManyToOne
     @JoinColumn(name = "locatario", referencedColumnName = "id", nullable = false)
     @ForeignKey(name = "fk_locatario_id")
     private Locatario locatario;
-    
+
+    @OneToMany(mappedBy = "aluguel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Mensalidades> mensalidade = new ArrayList<>();
+
     public Aluguel() {
     }
-    
+
+    public void adicionarMensalidade(Mensalidades obj) {
+        obj.setAluguel(this);
+        this.mensalidade.add(obj);
+    }
+
+    public void removermensalidade(int index) {
+        this.mensalidade.remove(index);
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -95,8 +113,6 @@ public class Aluguel implements Serializable{
         return true;
     }
 
-    
-    
     public Integer getId() {
         return id;
     }
@@ -152,7 +168,13 @@ public class Aluguel implements Serializable{
     public void setLocatario(Locatario locatario) {
         this.locatario = locatario;
     }
-    
-    
-            
+
+    public List<Mensalidades> getTelefone() {
+        return mensalidade;
+    }
+
+    public void setTelefone(List<Mensalidades> Telefone) {
+        this.mensalidade = Telefone;
+    }
+
 }

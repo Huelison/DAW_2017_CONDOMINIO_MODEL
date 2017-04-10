@@ -6,8 +6,7 @@
 package br.edu.ifsul.junit;
 
 import br.edu.ifsul.modelo.Aluguel;
-import br.edu.ifsul.modelo.Locatario;
-import br.edu.ifsul.modelo.UnidadeCondominal;
+import br.edu.ifsul.modelo.Mensalidades;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,13 +20,13 @@ import org.junit.Test;
  *
  * @author Huelison
  */
-public class TestePersistirAluguel {
+public class TestePersistirMensalidade {
     
     
     EntityManagerFactory emf;
     EntityManager em;    
     
-    public TestePersistirAluguel() {
+    public TestePersistirMensalidade() {
     
     }
     
@@ -46,23 +45,26 @@ public class TestePersistirAluguel {
     public void testar(){
         boolean exception = false;
         try{
-            UnidadeCondominal uc = em.find(UnidadeCondominal.class, 3);
-            Locatario l = em.find(Locatario.class, 5);
-
-            Aluguel al = new Aluguel();
-            al.setValor(500.00);
+            Aluguel al = em.find(Aluguel.class, 1);
             
-            Calendar contrato  = Calendar.getInstance();
-            al.setInicioContrato(contrato);
-
-            contrato  = Calendar.getInstance();
-            contrato.add(Calendar.YEAR, 2);
-            al.setFimContrato(contrato);
-
-            al.setDiaVencimento(15);
-            al.setUnidadecondominal(uc);
-            al.setLocatario(l);
-
+            Mensalidades m = new Mensalidades();
+            m.setValor(50.00);
+            Calendar data = Calendar.getInstance();
+            data.add(Calendar.MONTH, 1);
+            m.setVencimento(data);
+            m.setValorPagamento(50.00);
+            m.setDataPagamento(Calendar.getInstance());
+            
+            al.adicionarMensalidade(m);
+    
+            Mensalidades m2 = new Mensalidades();
+            m2.setValor(120.00);
+            data = Calendar.getInstance();
+            data.add(Calendar.MONTH, 2);
+            m2.setVencimento(data);
+            
+            al.adicionarMensalidade(m2);
+            
             em.getTransaction().begin();
             em.persist(al);
             em.getTransaction().commit();
