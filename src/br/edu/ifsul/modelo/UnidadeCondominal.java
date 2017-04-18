@@ -40,7 +40,7 @@ public class UnidadeCondominal implements Serializable{
     
     @NotNull(message = "A descrição deve ser informada")
     @NotBlank(message = "A descrição não pode ser em branco")
-    @Column(name = "descricao", length = 50, nullable = false,columnDefinition = "text")
+    @Column(name = "descricao", nullable = false,columnDefinition = "text")
     private String descricao;
     
     @NotNull(message = "A área deve ser informada")

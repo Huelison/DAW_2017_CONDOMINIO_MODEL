@@ -21,6 +21,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -57,9 +58,9 @@ public class Condominio implements Serializable {
     @Column(name = "numero", length = 50, nullable = false)
     private String numero;
     @NotNull(message = "O cep deve ser informado")
-    @Length(max = 9, message = "O cep não pode ter mais que {max} caracteres")
+    @Length(max = 8, message = "O cep não pode ter mais que {max} caracteres")
     @NotBlank(message = "O cep não pode ser em branco")
-    @Column(name = "cep", length = 9, nullable = false)
+    @Column(name = "cep", length = 8, nullable = false)
     private String cep;
     @ManyToMany
     @JoinTable(name = "condominio_recursos",
@@ -72,7 +73,7 @@ public class Condominio implements Serializable {
     @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UnidadeCondominal> unidades_condominais = new ArrayList<>();
 
-        public void adicionarUnidadesCondominais(UnidadeCondominal obj) {
+    public void adicionarUnidadesCondominais(UnidadeCondominal obj) {
         obj.setCondominio(this);
         this.unidades_condominais.add(obj);
     }

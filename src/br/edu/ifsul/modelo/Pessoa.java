@@ -47,9 +47,9 @@ public class Pessoa implements Serializable{
     private String telefone;
     @CPF(message = "O CPF deve ser válido")
     @NotNull(message = "O CPF deve ser informado")
-    @Length(max = 14, message = "O CPF não pode ter mais que {max} caracteres")
+    @Length(max = 11, message = "O CPF não pode ter mais que {max} caracteres")
     @NotBlank(message = "O CPF não pode ser em branco")
-    @Column(name = "cpf", length = 50, nullable = false)
+    @Column(name = "cpf", length = 11, nullable = false)
     private String cpf;
 
     public Pessoa() {
