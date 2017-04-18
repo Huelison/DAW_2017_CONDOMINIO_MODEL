@@ -21,6 +21,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -34,6 +37,10 @@ public class Recurso implements Serializable{
     @SequenceGenerator(name = "seq_recurso", sequenceName = "seq_recurso_id", allocationSize = 1) //criando uma sequencia
     @GeneratedValue(generator = "seq_recurso", strategy = GenerationType.SEQUENCE) //uma sequencia pra cada tabela
     private Integer id;
+    
+    @NotNull(message = "A descrição deve ser informada")
+    @Length(max = 50, message = "A descrição não pode ter mais que {max} caracteres")
+    @NotBlank(message = "A descrição não pode ser em branco")
     @Column(name = "descricao", length = 50, nullable = false) //definindo a coluna da tabela nome
     private String descricao;    
     @ManyToMany

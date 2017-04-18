@@ -31,7 +31,7 @@ public class Locatario extends Pessoa implements Serializable {
     @NotNull(message = "O local de trabalho deve ser informado")
     @Length(max = 50, message = "O local de trabalho não pode ter mais que {max} caracteres")
     @NotBlank(message = "O local de trabalho não pode ser em branco")
-    @Column(name = "localtrabalho", length = 15, nullable = false)
+    @Column(name = "localtrabalho", length = 50, nullable = false)
     String localTrabalho;
     @NotNull(message = "O telefone de trabalho deve ser informado")
     @Length(max = 15, message = "O telefone de trabalho não pode ter mais que {max} caracteres")

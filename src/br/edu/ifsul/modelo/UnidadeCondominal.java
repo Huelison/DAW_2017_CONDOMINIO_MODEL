@@ -34,7 +34,7 @@ public class UnidadeCondominal implements Serializable{
     private Integer id;
     
     @NotNull(message = "O numero deve ser informado")
-    @NotBlank(message = "O numero não pode ser em brnaco")
+    @NotBlank(message = "O numero não pode ser em branco")
     @Column(name = "numero", length = 50, nullable = false)
     private String numero;
     

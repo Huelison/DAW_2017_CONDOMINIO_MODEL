@@ -44,8 +44,8 @@ public class TestePersistirCondominioRecurso {
     public void testar(){
         boolean exception = false;
         try{
-            Recurso r = em.find(Recurso.class,3 );
-            Condominio c = em.find(Condominio.class, 2);
+            Recurso r = em.find(Recurso.class,5 );
+            Condominio c = em.find(Condominio.class, 4);
             
             
             System.out.println(c.getNome());

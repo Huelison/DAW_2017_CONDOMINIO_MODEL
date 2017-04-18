@@ -9,8 +9,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +21,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -49,7 +52,7 @@ public class Condominio implements Serializable {
     @Column(name = "endereco", length = 50, nullable = false)
     private String endereco;
     @NotNull(message = "O numero deve ser informado")
-    @Length(max = 50, message = "O bairro não pode ter mais que {max} caracteres")
+    @Length(max = 50, message = "O numero não pode ter mais que {max} caracteres")
     @NotBlank(message = "O numero não pode ser em branco")
     @Column(name = "numero", length = 50, nullable = false)
     private String numero;
@@ -66,6 +69,19 @@ public class Condominio implements Serializable {
             = @JoinColumn(name = "recurso", referencedColumnName = "id", nullable = false))
     private List<Recurso> cRecurso = new ArrayList<>();
 
+    @OneToMany(mappedBy = "condominio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UnidadeCondominal> unidades_condominais = new ArrayList<>();
+
+        public void adicionarUnidadesCondominais(UnidadeCondominal obj) {
+        obj.setCondominio(this);
+        this.unidades_condominais.add(obj);
+    }
+
+    public void removermensalidade(int index) {
+        this.unidades_condominais.remove(index);
+    }
+
+    
     public Condominio() {
     }
 
@@ -141,5 +157,13 @@ public class Condominio implements Serializable {
     public void setcRecurso(List<Recurso> cRecurso) {
         this.cRecurso = cRecurso;
     }
-    
+
+    public List<UnidadeCondominal> getUnidades_condominais() {
+        return unidades_condominais;
+    }
+
+    public void setUnidades_condominais(List<UnidadeCondominal> unidades_condominais) {
+        this.unidades_condominais = unidades_condominais;
+    }
+
 }

@@ -46,8 +46,8 @@ public class TestePersistirAluguel {
     public void testar(){
         boolean exception = false;
         try{
-            UnidadeCondominal uc = em.find(UnidadeCondominal.class, 3);
-            Locatario l = em.find(Locatario.class, 5);
+            UnidadeCondominal uc = em.find(UnidadeCondominal.class, 4);
+            Locatario l = em.find(Locatario.class, 11);
 
             Aluguel al = new Aluguel();
             al.setValor(500.00);

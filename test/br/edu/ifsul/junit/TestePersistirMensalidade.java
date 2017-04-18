@@ -45,7 +45,7 @@ public class TestePersistirMensalidade {
     public void testar(){
         boolean exception = false;
         try{
-            Aluguel al = em.find(Aluguel.class, 1);
+            Aluguel al = em.find(Aluguel.class, 2);
             
             Mensalidades m = new Mensalidades();
             m.setValor(50.00);
