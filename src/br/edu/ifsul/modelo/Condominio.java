@@ -58,9 +58,9 @@ public class Condominio implements Serializable {
     @Column(name = "numero", length = 50, nullable = false)
     private String numero;
     @NotNull(message = "O cep deve ser informado")
-    @Length(max = 8, message = "O cep não pode ter mais que {max} caracteres")
+    @Length(max = 9, message = "O cep não pode ter mais que {max} caracteres")
     @NotBlank(message = "O cep não pode ser em branco")
-    @Column(name = "cep", length = 8, nullable = false)
+    @Column(name = "cep", length = 9, nullable = false)
     private String cep;
     @ManyToMany
     @JoinTable(name = "condominio_recursos",
@@ -78,7 +78,7 @@ public class Condominio implements Serializable {
         this.unidades_condominais.add(obj);
     }
 
-    public void removermensalidade(int index) {
+    public void removerUnidadesCondominais(int index) {
         this.unidades_condominais.remove(index);
     }
 
