@@ -93,11 +93,11 @@ public class UnidadeCondominal implements Serializable{
         return true;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -125,11 +125,11 @@ public class UnidadeCondominal implements Serializable{
         this.area = area;
     }
 
-    public int getNumeroQuarto() {
+    public Integer getNumeroQuarto() {
         return numeroQuarto;
     }
 
-    public void setNumeroQuarto(int numeroQuarto) {
+    public void setNumeroQuarto(Integer numeroQuarto) {
         this.numeroQuarto = numeroQuarto;
     }
 

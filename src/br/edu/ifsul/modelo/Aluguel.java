@@ -79,6 +79,23 @@ public class Aluguel implements Serializable {
     public Aluguel() {
     }
 
+    public void gerarMensalidades() {
+        Calendar dataGerar;
+        dataGerar = (Calendar) this.inicioContrato.clone();
+        while (dataGerar.before(this.fimContrato)) {
+            dataGerar = (Calendar) dataGerar.clone();
+            dataGerar.set(Calendar.DAY_OF_MONTH, diaVencimento);
+            dataGerar.add(Calendar.MONTH, 1);
+            Mensalidades m = new Mensalidades();
+            m.setAluguel(this);
+            m.setDataPagamento(null);
+            m.setValor(valor);
+            m.setValorPagamento(null);
+            m.setVencimento(dataGerar);
+            this.mensalidade.add(m);
+        }
+    }
+
     public void adicionarMensalidade(Mensalidades obj) {
         obj.setAluguel(this);
         this.mensalidade.add(obj);
@@ -169,12 +186,12 @@ public class Aluguel implements Serializable {
         this.locatario = locatario;
     }
 
-    public List<Mensalidades> getTelefone() {
+    public List<Mensalidades> getMensalidade() {
         return mensalidade;
     }
 
-    public void setTelefone(List<Mensalidades> Telefone) {
-        this.mensalidade = Telefone;
+    public void setMensalidade(List<Mensalidades> mensalidade) {
+        this.mensalidade = mensalidade;
     }
 
 }
